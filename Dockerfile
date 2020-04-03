@@ -16,6 +16,11 @@ RUN /usr/local/bin/pip3 install ansible cryptography docutils psutil PyYAML \
     /usr/local/bin/pip3 install --no-cache-dir ansible-runner==1.3.2 && \
     rm -rf /var/cache/yum
 
+RUN curl -s -o /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.3/linux/oc.tar.gz && \
+    tar -C /usr/local/bin -zxf /tmp/oc.tar.gz oc && \
+    ln -s /usr/local/bin/oc /usr/local/bin/kubectl && \
+    rm /tmp/oc.tar.gz
+
 # Prepare folders for shared access and ssh
 RUN mkdir -p /etc/ansible-runner-service && \
     mkdir -p /root/.ssh && \
